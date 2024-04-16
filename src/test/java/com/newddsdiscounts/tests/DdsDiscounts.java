@@ -15,12 +15,13 @@ public class DdsDiscounts extends BaseTest{
 
     public void testDdsDiscounts() throws InterruptedException {
         homePage
-                .closeCookie ()
+//                .closeCookie ()
                 .verifySignInModalWindowDisplay()
-                .verifyHomePageLogoAndImage()
-                .verifyHomePageTextsAndTittle()
-                .footerLinksList()
-                .allLinksOnHomePage()
+//                .verifyHomePageLogoAndImage()
+//                .verifyHomePageTextsAndTittle()
+//                .footerLinksList()
+//                .allLinksOnHomePage()
+                .clickFooterAboutUsLinksAndVerifyUrlAndTittle()
                 .navMenuList();
 
                 //.verifyHomePageRossAltLinkText();

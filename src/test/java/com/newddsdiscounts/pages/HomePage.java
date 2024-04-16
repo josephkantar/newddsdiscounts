@@ -18,7 +18,7 @@ import java.util.Set;
 import static com.newddsdiscounts.constants.FrameworkConstants.getUrl;
 import static com.newddsdiscounts.utils.BrowserUtils.click;
 import static com.newddsdiscounts.utils.BrowserUtils.navigateTo_URL;
-import static com.newddsdiscounts.utils.JSUtils.scrollIntoViewJS;
+import static com.newddsdiscounts.utils.JSUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -78,21 +78,26 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@id='onetrust-close-btn-container']//button[@aria-label='Close']") private WebElement closeCookieButton;
     @FindBy(xpath = "//a[@href='http://partners.rossstores.com/index.html'][text()='dd’s Freight Routing Guide']\n") private WebElement ddsFreight;
     @FindBy(xpath = "//a[@href='http://partners.rossstores.com/index.html'][text()='Ross Freight Routing Guide']") private WebElement rossFreight;
-    @FindBy(xpath = "//a[@href='https://corp.rossstores.com/responsibility/']") private WebElement socialResponsibilityPageLink;
-    @FindBy(xpath = "//ul[@id='menu-footer']") private WebElement pageFooter;
-    @FindBy(xpath = "//li[@id='menu-item-49']") private WebElement footerRossLink;
-    @FindBy(xpath = "//li[@id='menu-item-50']") private WebElement footerDDsLink;
-    @FindBy(xpath = "//li[@id='menu-item-51']") private WebElement footerPrivacyLink;
-    @FindBy(xpath = "//li[@id='menu-item-60']") private WebElement footerEqualEmploymentLink;
-    @FindBy(xpath = "//li[@id='menu-item-54']") private WebElement footerAccesssibilityLink;
-    @FindBy(xpath = "//li[@id='menu-item-53']") private WebElement footerContactUsLink;
-    @FindBy(xpath = "//li[@id='menu-item-52']") private WebElement footerSiteMapLink;
-    @FindBy(xpath = "//li[@id='menu-item-73']") private WebElement footerDoNotSellLink;
-    @FindBy(xpath = "//li[@id='menu-item-47']") private WebElement careersPageLink;
+    @FindBy(xpath = "//div[@id='mainfooter']") private WebElement pageFooter;
+    @FindBy(xpath = "//li[@id='menu-item-21']//a[@href='https://www.ddsdiscounts.com/about-us/']") private WebElement footerAboutUs;
+    @FindBy(xpath = "//li[@id='menu-item-22']//a[@href='https://jobs.rossstores.com/']") private WebElement footerCareers;
+    @FindBy(xpath = "//li[@id='menu-item-23']//a[@href='https://corp.rossstores.com/responsibility']") private WebElement footerSocialResponsibility;
+    @FindBy(xpath = "//li[@id='menu-item-611']//a[@href='https://corp.rossstores.com/responsibility/empowering-our-associates/our-commitment-to-diversity/']") private WebElement footerDiversityEI;
+    @FindBy(xpath = "//li[@id='menu-item-24']//a[@href='https://investors.rossstores.com/']") private WebElement footerInvestors;
+    @FindBy(xpath = "//li[@id='menu-item-25']//a[@href='https://www.rossstores.com/media/1062/productsourcinghumanrights.pdf']") private WebElement footerProductsSourcing;
+    @FindBy(xpath = "//li[@id='menu-item-38']//a[@href='https://myross.rossstores.com/']") private WebElement footerForAssociates;
+    @FindBy(xpath = "//li[@id='menu-item-35']//a[@href='https://www.ddsdiscounts.com/legal-notices/']") private WebElement footerLegalNotices;
+    @FindBy(xpath = "//li[@id='menu-item-37']//a[@href='https://www.ddsdiscounts.com/comparison-pricing/']") private WebElement footerComparisonPricing;
+    @FindBy(xpath = "//li[@id='menu-item-28']//a[@href='https://www.ddsdiscounts.com/privacy-policy/']") private WebElement footerPrivacyLink;
+    @FindBy(xpath = "//li[@id='menu-item-29']//a[@href='https://www.ddsdiscounts.com/terms-of-use/']") private WebElement footerTermsOfUse;
+    @FindBy(xpath = "//li[@id='menu-item-26']//a[@href='https://corp.rossstores.com/accessibility']") private WebElement footerAccesssibilityLink;
+    @FindBy(xpath = "//li[@id='menu-item-36']//a[@href='https://www.ddsdiscounts.com/contact-us/']") private WebElement footerContactUsLink;
+    @FindBy(xpath = "//li[@id='menu-item-34']//a[@href='https://www.ddsdiscounts.com/sitemap/']") private WebElement footerSiteMapLink;
+    @FindBy(xpath = "//li[@id='menu-item-27']//button[@class='ot-sdk-show-settings']") private WebElement footerDoNotSellLink;
 
 
 
-
+//careers, social responsibiity, diversity, investors, products, for asso, access
 
     public HomePage closeCookie(){
 
@@ -379,6 +384,30 @@ public class HomePage extends BasePage {
                 System.out.println("Exception occurred: " + e.getMessage());
             }
         }
+
+        return this;
+    }
+
+    public HomePage clickFooterAboutUsLinksAndVerifyUrlAndTittle() throws InterruptedException {
+
+        Allure.step("The user clicks  About us  Links  on footer and verify Url and Tittle");
+        navigateTo_URL(getUrl());
+        scrollIntoViewJS(pageFooter);
+        Thread.sleep(2000);
+
+        click(footerAboutUs);
+        String actualFooterAboutUsLinkUrl = driver.getCurrentUrl();
+        System.out.println(actualFooterAboutUsLinkUrl);
+        String expectedFooterAboutUsLinkUrl = "https://www.ddsdiscounts.com/about-us/";
+        Assert.assertEquals(actualFooterAboutUsLinkUrl, expectedFooterAboutUsLinkUrl);
+        System.out.println("Assert URL passed");
+
+        String actualFooterAboutUsLinkTittle = driver.getTitle();
+        System.out.println(actualFooterAboutUsLinkTittle);
+        String expectedFooterAboutUsLinkTittle = "About Us - dd's DISCOUNTS®";
+        Assert.assertEquals(actualFooterAboutUsLinkTittle, expectedFooterAboutUsLinkTittle);
+        System.out.println("Assert Tittle passed");
+        driver.navigate().back();
 
         return this;
     }
