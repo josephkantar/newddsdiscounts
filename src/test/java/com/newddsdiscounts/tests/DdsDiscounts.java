@@ -15,30 +15,28 @@ public class DdsDiscounts extends BaseTest{
 
     public void testDdsDiscounts() throws InterruptedException {
         homePage
-//                .closeCookie ()
-                .verifySignInModalWindowDisplay()
+                //.closeCookie ()
+//                .verifySignInModalWindowDisplay()
 //                .verifyHomePageLogoAndImage()
 //                .verifyHomePageTextsAndTittle()
 //                .footerLinksList()
 //                .allLinksOnHomePage()
-                .clickFooterAboutUsLinksAndVerifyUrlAndTittle()
-                .navMenuList();
-
-                //.verifyHomePageRossAltLinkText();
-//                .verifyHomePageTexts()
-//                .footerLinksList()
 //                .navMenuList()
-//                .verifySocialResponsibilityPage()
-//                .verifySocialResponsibilityPageNavMenuLinks()
-//                .clickFooterRossLinksAndVerifyUrlAndTittle()
-//                .clickFooterDDsLinksAndVerifyUrlAndTittle()
-//                .clickFooterPrivacyLinksAndVerifyUrlAndTittle()
-//                .clickFooterEqualEmployLinksAndVerifyUrlAndTittle()
-//                .clickFooterAccessibilityLinksAndVerifyUrlAndTittle()
-//                .clickFooterContactUsLinksAndVerifyUrlAndTittle()
-//                .clickFooterSiteMapLinksAndVerifyUrlAndTittle()
-//                .clickFooterDoNotCookieAndVerify()
-//                .goToCareersPageViaCompany();
+//                .clickFooterAboutUsLinksAndVerifyUrlAndTittle()
+//                .clickFooterCareersPageAndVerifyUrlAndTittle()
+//                .clickFooterSocialResponsibilityPageAndVerifyUrlAndTittle()
+//                .clickFooterDiversityPageAndVerifyUrlAndTittle()
+//                .clickFooterInvestorsPageAndVerifyUrlAndTittle()
+//                .clickFooterProductsPageAndVerifyUrlAndTittle()
+//                .clickFooterContactUsPageAndVerifyUrlAndTittle()
+//                .clickFooterAssociatesPageAndVerifyUrlAndTittle()
+//                .clickFooterLegalNoticesLinksAndVerifyUrlAndTittle()
+                .clickFooterComparisonPricingLinksAndVerifyUrlAndTittle()
+                .clickFooterSitemapLinksAndVerifyUrlAndTittle()
+                .clickFooterPrivacyLinksAndVerifyUrlAndTittle()
+                .clickFooterAccessibilityLinksAndVerifyUrlAndTittle()
+                .clickFooterDoNotCookieAndVerify()
+                .clickFooterTermsofUseLinksAndVerifyUrlAndTittle();
 //
 //        careersPage
 //                .clickFooterLinksAndVerifyUrlAndTittles()

@@ -6,7 +6,7 @@ import org.testng.ITestResult;
 // RetryAnalyzer > it means that if we receive an error while we are running the tests, it will run same test case again.
 
 public class RetryAnalyzer implements IRetryAnalyzer {
-    private static final int MAX_RETRY_COUNT = 1;
+    private static final int MAX_RETRY_COUNT = 0;
     private int retryCount = 0;
 
     @Override
