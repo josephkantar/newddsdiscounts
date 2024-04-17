@@ -16,10 +16,10 @@ public class DdsDiscounts extends BaseTest{
     public void testDdsDiscounts() throws InterruptedException {
 
         homePage
-                .closeCookie ()
                 .verifySignInModalWindowDisplay()
+                //.closeCookie ()
+                //.verifyHomePageTextsAndTittle()
                 //.verifyHomePageLogoAndImage()
-                .verifyHomePageTextsAndTittle()
                 .footerLinksList()
                 .allLinksOnHomePage()
                 .navMenuList()
@@ -43,10 +43,28 @@ public class DdsDiscounts extends BaseTest{
 //
         contactUsPageForm
                 .clickFooterContactUsPageAndVerifyUrlAndTittle()
+                .verifyRequiredFieldsContactUsform()
+                .createFormTopicCustomerService()
+                .createFormTopicEmployment()
+                .createFormTopicCorporateSocial()
+                .createFormTopicVendorInquiries()
+                .createFormTopicWebsiteTechIsuues()
+                .createFormTopicIvestor()
+                .createFormTopicRealEstate()
+                .createFormTopicOther()
                 .navigateToFoundInStore();
 
+
         foundInStorePage
-                .clickFoundInStoreLinkAndVerifyUrlAndTittle();
+                .clickFoundInStoreLinkAndVerifyUrlAndTittle()
+                .verifyTittlesAndTexts()
+                .clickFoundInStoreSelectAllFromDropdown()
+                .clickFoundInStoreSelectMenFromDropdown()
+                .clickFoundInStoreSelectLadiesFromDropdown()
+                .clickFoundInStoreSelectKidsFromDropdown()
+                .clickFoundInStoreSelectShoesFromDropdown()
+                .clickFoundInStoreSelectHomeFromDropdown()
+                .clickFoundInStoreSelectMoreFromDropdown();
 
 
     }

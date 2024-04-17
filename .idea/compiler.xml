@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="newddsdiscounts" target="17" />
+      <module name="newddsdiscounts" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>

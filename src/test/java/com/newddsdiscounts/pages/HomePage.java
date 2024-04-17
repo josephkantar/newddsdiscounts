@@ -2,10 +2,7 @@ package com.newddsdiscounts.pages;
 
 import com.newddsdiscounts.driver.DriverManager;
 import io.qameta.allure.Allure;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -15,7 +12,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Set;
 
-import static com.newddsdiscounts.constants.FrameworkConstants.getUrl;
+import static com.newddsdiscounts.constants.FrameworkConstants.*;
 import static com.newddsdiscounts.utils.BrowserUtils.click;
 import static com.newddsdiscounts.utils.BrowserUtils.navigateTo_URL;
 import static com.newddsdiscounts.utils.JSUtils.*;
@@ -69,8 +66,10 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//img[@src='https://www.ddsdiscounts.com/wp-content/uploads/2024/02/st4.jpg']")
     private WebElement getInspiredImage4;
 
-    @FindBy(xpath = "//div[@class='card-body']//h2[contains(text(),'SPRING IS IN THE FLAIR')]")
-    private WebElement carouselSlide1Tittle;
+    @FindBy(xpath = "//div[@class='carousel-play-container']//button[@class='play-toggle pause']")
+    private WebElement carouselSlidePlatButton;
+    @FindBy(xpath = "//span[contains(text(),'See More Trends')]")
+    private WebElement carouselSlide1SeeMoreTrendsButton;
     @FindBy(xpath = "//div[@class='card-body']//p[contains(text(),'So. Many. Spring. Dealz.')]")
     private WebElement carouselSlide1Text;
     @FindBy(xpath = "//a[@class='btn outlined outlined-white']")
@@ -184,42 +183,53 @@ public class HomePage extends BasePage {
 
 //careers, social responsibiity, diversity, investors, products, for asso, access
 
-    public HomePage closeCookie() {
-
-        Allure.step("The user navigates to the home page " + getUrl());
-        navigateTo_URL(getUrl());
-        if (closeCookieButton.isDisplayed()) {
-            closeCookieButton.click();
-        }else {
-
-        }
-
-        //click(closeCookieButton);
-
-        return this;
-    }
-
-    public HomePage verifySignInModalWindowDisplay() {
+    public HomePage verifySignInModalWindowDisplay() throws InterruptedException {
 
         Allure.step("Sign in Modal Window Displayed");
         navigateTo_URL(getUrl());
+        Thread.sleep(5000);
+        //driver.switchTo().frame(0);
 
         if (signInModalWindow.isDisplayed()) {
 
             WebElement modalWindowHeaderTittle = signInModalWindowHeaderTittle;
             System.out.println(modalWindowHeaderTittle.getText());
 
-            WebElement modalWindowHeaderText = signInModalWindowHeaderText;
-            System.out.println(modalWindowHeaderText.getText());
+//            WebElement modalWindowHeaderText = signInModalWindowHeaderText;
+//            System.out.println(modalWindowHeaderText.getText());
 
             System.out.println("signInModalWindowHeaderTittle and signInModalWindowHeaderText is displayed");
         } else {
             System.out.println("clear the cache the webpage and try again ");
         }
 
+        WebElement sendESC = driver.findElement(By.tagName("body"));
+        int numberOfTimesESC = 4;
+        for (int i = 0; i <numberOfTimesESC ; i++) {
+            sendESC.sendKeys(Keys.ESCAPE);
+        }
+
+
         return this;
 
     }
+
+//    public HomePage closeCookie() {
+//
+//        Allure.step("The user navigates to the home page " + getUrl());
+//        //navigateTo_URL(getUrl());
+//        if (closeCookieButton.isDisplayed()) {
+//            closeCookieButton.click();
+//        }else {
+//
+//        }
+//
+//        //click(closeCookieButton);
+//
+//        return this;
+//    }
+
+
 
     public HomePage verifyHomePageTextsAndTittle() {
         Allure.step("Check that HomePage Texts And Tittles displayed as expected.");
@@ -233,8 +243,10 @@ public class HomePage extends BasePage {
 
         }
 
+        jsScrollClick(carouselSlidePlatButton);
+
         //carousel text and tittle
-        boolean carouselSlide1Tittle1 = carouselSlide1Tittle.isDisplayed();
+        boolean carouselSlide1Tittle1 = carouselSlide1SeeMoreTrendsButton.isDisplayed();
         System.out.println(" carousel Slide1 Tittle1 displayed " + carouselSlide1Tittle1);
         boolean carouselSlide1Text1 = carouselSlide1Text.isDisplayed();
         System.out.println(" carousel Slide1 Text1 displayed " + carouselSlide1Text1);
@@ -245,6 +257,7 @@ public class HomePage extends BasePage {
         boolean carouselSlide2Button1 = carouselSlide2Button.isDisplayed();
         System.out.println(" carousel Slide2 Button1 displayed " + carouselSlide2Button1);
 
+        jsScrollClick(getInspiredTittle);
         // Get Inspired Text and Tittle
         boolean getInspiredTittle1 = getInspiredTittle.isDisplayed();
         System.out.println(" getInspired Tittle1  displayed " + getInspiredTittle1);
@@ -253,10 +266,11 @@ public class HomePage extends BasePage {
         boolean getInspiredButton1 = getInspiredButton.isDisplayed();
         System.out.println(" getInspired Button1 displayed " + getInspiredButton1);
         //Footer sign in text and tittle
+        jsScrollClick(pageFooter);
         boolean footerSignInModuleTittle1 = footerSignInModuleTittle.isDisplayed();
         System.out.println(" footer SignIn Module Tittle1 displayed " + footerSignInModuleTittle1);
         boolean footerSignInModuleText1 = footerSignInModuleText.isDisplayed();
-        System.out.println(" footer rSignIn Module Text1  displayed" + footerSignInModuleText1);
+        System.out.println(" footer rSignIn Module Text1  displayed " + footerSignInModuleText1);
         boolean footerSignInTermsAndUse1 = footerSignInTermsAndUse.isDisplayed();
         System.out.println(" footerSignInTermsAndUse1 displayed " + footerSignInTermsAndUse1);
         boolean footerSignInPrivacyPolicy1 = footerSignInPrivacyPolicy.isDisplayed();
@@ -1049,22 +1063,12 @@ public class HomePage extends BasePage {
     public ContactUsPageForm navigateToContactUsPage() throws InterruptedException {
         Allure.step("The user navigate to contact Us page");
 
-        navigateTo_URL(getUrl());
-        scrollIntoViewJS(pageFooter);
+        navigateTo_URL(getContactUsUrl());
         Thread.sleep(2000);
 
-        String contactUsUrl = "https://www.ddsdiscounts.com/contact-us/";
+        WebElement sendESC = driver.findElement(By.tagName("body"));
+        sendESC.sendKeys(Keys.ESCAPE);
 
-        jsScrollClick(footerContactUsLink);
-        String parentWindow6 = driver.getWindowHandle();
-        Set<String> handles6 = driver.getWindowHandles();
-        for (String windowHandle : handles6) {
-            if (!windowHandle.equals(parentWindow6)) {
-                driver.switchTo().window(windowHandle);
-                driver.navigate().to(contactUsUrl);
-            }
-
-        }
         return new ContactUsPageForm(driver);
     }
 }
