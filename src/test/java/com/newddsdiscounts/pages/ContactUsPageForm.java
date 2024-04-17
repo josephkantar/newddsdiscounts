@@ -3,12 +3,14 @@ package com.newddsdiscounts.pages;
 import com.newddsdiscounts.driver.DriverManager;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import static com.newddsdiscounts.constants.FrameworkConstants.getUrl;
+import static com.newddsdiscounts.constants.FrameworkConstants.*;
 import static com.newddsdiscounts.utils.JSUtils.jsScrollClick;
 import static com.newddsdiscounts.utils.JSUtils.scrollIntoViewJS;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -52,7 +54,74 @@ public class ContactUsPageForm extends BasePage {
     @FindBy(xpath = "//span[contains(text(),'I am a dd’s Associate, where can I find informatio')]")
     private WebElement faqQuestion10;
     @FindBy(xpath = "//section[@class='card block___contact-form']")
-    private WebElement contacUsFormSection;
+    private WebElement contactUsFormSection;
+
+    //Contact Us Form
+
+    @FindBy(xpath = "//div[@class='form-body']")
+    private WebElement contactUsFormBody;
+    @FindBy(xpath = "//span[contains(text(),'Submit')]")
+    private WebElement contactUsFormSubmitButton;
+    @FindBy(xpath = "//span[@id='form-firstname-error']")
+    private WebElement contactUsFormFirstNameErrorMessage;
+    @FindBy(xpath = "//span[@id='form-lastname-error']")
+    private WebElement contactUsFormLastNameErrorMessage;
+    @FindBy(xpath = "//span[@id='form-email-error']")
+    private WebElement contactUsFormEmailErrorMessage;
+    @FindBy(xpath = "//span[@id='form-inquiry-error']")
+    private WebElement contactUsFormTopicErrorMessage;
+    @FindBy(xpath = "//span[@id='form-message-error']")
+    private WebElement contactUsFormMessageErrorMessage;
+
+
+    //ContactUsForm Fields
+
+    @FindBy(xpath = "//input[@id='form-firstname']")
+    private WebElement contactUsFormFirstNameField;
+    @FindBy(xpath = "//input[@id='form-lastname']")
+    private WebElement contactUsFormLastNameField;
+    @FindBy(xpath = "//input[@id='form-email']")
+    private WebElement contactUsFormEmailField;
+    @FindBy(xpath = "//input[@id='form-phone']")
+    private WebElement contactUsFormPhoneNumberField;
+    @FindBy(css = "#form-message")
+    private WebElement contactUsFormMessageField;
+    @FindBy(xpath = "//input[@id='form-city']")
+    private WebElement contactUsFormStoreCity;
+    @FindBy(xpath = "//select[@id='form-state']")
+    private WebElement contactUsFormStoreState;
+    @FindBy(xpath = "//input[@id='form-receipt-no']")
+    private WebElement contactUsFormReceiptNo;
+    @FindBy(xpath = "//h3[contains(text(),'Message Sent')]")
+    private WebElement contactUsFormConfirmation;
+    @FindBy(xpath = "//div[contains(text(),'We will review your message and reach out to you.')]")
+    private WebElement contactUsFormConfirmationMessage;
+
+    //ContactUsSelectTopic
+
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectCustomerService;
+    @FindBy(xpath = "//select[@id='form-customerService']")
+    private WebElement selectCustomerServiceMercReturn;
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectEmployment;
+    @FindBy(xpath = "//select[@id='form-related-employment']")
+    private WebElement selectEmploymentProspective;
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectCorporateSocialResponsibility;
+    @FindBy(xpath = "//select[@id='form-corporate']")
+    private WebElement selectCorporateGiving;
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectVendorInquiries;
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectWebsiteTechnicalIssues;
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectInvestorAndMedia;
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectRealEstate;
+    @FindBy(xpath = "//select[@id='form-inquiry']")
+    private WebElement selectOther;
+
 
 
     public ContactUsPageForm clickFooterContactUsPageAndVerifyUrlAndTittle() throws InterruptedException {
@@ -159,8 +228,295 @@ public class ContactUsPageForm extends BasePage {
         boolean faqAnswer10  = driver.findElement(By.xpath("//a[contains(text(),'https://MyRoss.rossstores.com')]")).isDisplayed();
         System.out.println("faqAnswer10 Text is displayed " + faqAnswer10);
 
-        boolean contacUsForm = contacUsFormSection.isDisplayed();
+        boolean contacUsForm = contactUsFormSection.isDisplayed();
         System.out.println("contacUsForm Section is displayee" + contacUsForm);
+
+
+        return this;
+    }
+
+    public ContactUsPageForm verifyRequiredFieldsContactUsform() throws InterruptedException {
+
+        Allure.step("The user verify required fields on  Contact Us form");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+        jsScrollClick(contactUsFormSubmitButton);
+        waitForVisibility(contactUsFormFirstNameErrorMessage);
+
+        WebElement firstNameError = contactUsFormFirstNameErrorMessage;
+        System.out.println(firstNameError.getText());
+        WebElement lastNameError = contactUsFormLastNameErrorMessage;
+        System.out.println(lastNameError.getText());
+        WebElement emailError = contactUsFormEmailErrorMessage;
+        System.out.println(emailError.getText());
+        WebElement topicError = contactUsFormTopicErrorMessage;
+        System.out.println(topicError.getText());
+        WebElement messageError = contactUsFormMessageErrorMessage;
+        System.out.println(messageError.getText());
+
+
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicCustomerService() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create CustomerService form ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicCustomerService = new Select(selectCustomerService);
+        topicCustomerService.selectByValue("Customer Service");
+        Thread.sleep(1000);
+        Select customerServiceMerchandise = new Select(selectCustomerServiceMercReturn);
+        customerServiceMerchandise.selectByValue("Merchandise Return or Exchange");
+        contactUsFormStoreCity.sendKeys("Austin");
+
+        Select storeState = new Select(driver.findElement(By.xpath("//select[@id='form-state']")));
+        storeState.selectByValue("TX");
+        WebElement noReceiptButton = contactUsFormReceiptNo;
+        noReceiptButton.click();
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicEmployment() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create Employment - Prospective form ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicEmployment = new Select(selectEmployment);
+        topicEmployment.selectByValue("Employment");
+        Thread.sleep(1000);
+        Select employmentProspective = new Select(selectEmploymentProspective);
+        employmentProspective.selectByValue("Prospective Associates");
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicCorporateSocial() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create Corporate Social Responsibility  ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicCorporoteSocial = new Select(selectCorporateSocialResponsibility);
+        topicCorporoteSocial.selectByValue("Corporate Social Responsibility");
+        Thread.sleep(1000);
+        Select corporateSocialCommunity = new Select(selectCorporateGiving);
+        corporateSocialCommunity.selectByValue("Community Giving");
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicVendorInquiries() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create Vendor Inquiries  ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicVendorInquiries = new Select(selectVendorInquiries);
+        topicVendorInquiries.selectByValue("Vendor Inquiries");
+        Thread.sleep(1000);
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicWebsiteTechIsuues() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create Website Tech Issues Form ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicWebsiteTechIsuues = new Select(selectWebsiteTechnicalIssues);
+        topicWebsiteTechIsuues.selectByValue("Website Technical Issues");
+        Thread.sleep(1000);
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicIvestor() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create InvestorsForm ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicInvestors = new Select(selectInvestorAndMedia);
+        topicInvestors.selectByValue("Investor and Media Requests");
+        Thread.sleep(1000);
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicRealEstate() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create Real Estate Form ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicRealEstate = new Select(selectRealEstate);
+        topicRealEstate.selectByValue("Real Estate");
+        Thread.sleep(1000);
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
+
+
+        return this;
+    }
+
+    public ContactUsPageForm createFormTopicOther() throws InterruptedException {
+
+        Allure.step("The user verify that they are able to create Real Estate Form ");
+
+        navigateTo_URL(getContactUsUrl());
+        scrollIntoViewJS(contactUsFormBody);
+        Thread.sleep(1000);
+
+        contactUsFormFirstNameField.sendKeys("Tester");
+        contactUsFormLastNameField.sendKeys("Teseter last name");
+        contactUsFormEmailField.sendKeys("test@test.com");
+        contactUsFormPhoneNumberField.sendKeys("123456789");
+
+        Select topicOther = new Select(selectOther);
+        topicOther.selectByValue("Other");
+        Thread.sleep(1000);
+
+        contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
+        Thread.sleep(1000);
+        click(contactUsFormSubmitButton);
+        Thread.sleep(1000);
+
+        boolean successMessage = contactUsFormConfirmation.isDisplayed();
+        System.out.println("Form successfully created " + successMessage);
+        WebElement successMessageText = contactUsFormConfirmationMessage;
+        System.out.println(successMessageText.getText());
 
 
         return this;
@@ -170,10 +526,13 @@ public class ContactUsPageForm extends BasePage {
 
         Allure.step("The user navigate FoundINsTORE page");
 
-        navigateTo_URL(getUrl());
+        navigateTo_URL(getFoundInStoreUrl());
         Thread.sleep(2000);
 
-        driver.navigate().to("https://www.ddsdiscounts.com/found-in-store/");
+        WebElement sendESC = driver.findElement(By.tagName("body"));
+        sendESC.sendKeys(Keys.ESCAPE);
+
+        //driver.navigate().to("https://www.ddsdiscounts.com/found-in-store/");
         return new FoundInStorePage(driver);
 
     }
