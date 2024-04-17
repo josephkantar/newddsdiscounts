@@ -10,7 +10,7 @@ public class FrameworkConstants {
     }
 
     private static final String URL = ConfigurationReaderFile.get("url");
-    private static final String socialResponsibilityUrl = ConfigurationReaderFile.get("urlSocialResponsibility");
+    private static final String contactUsUrl = ConfigurationReaderFile.get("urlContactUs");
 
     // final keywords meaning > we are assign an absolute value to our variable to prevent to change data (intentially or unintellialy mistake )
     // when we use final > keyword > we have to put UPPER case letter (URL > Correct version)
@@ -18,8 +18,8 @@ public class FrameworkConstants {
     public static String getUrl() {
         return URL;
     }
-    public static String getSocialResponsibilityUrl() {
-        return socialResponsibilityUrl;
+    public static String getContactUsUrl() {
+        return contactUsUrl;
     }
 
 

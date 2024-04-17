@@ -10,40 +10,43 @@ import org.testng.annotations.Test;
 public class DdsDiscounts extends BaseTest{
 
     @Severity(SeverityLevel.CRITICAL)
-    @Step("Corp Ross")
-    @Test(testName = "Corp Ross HomePage",retryAnalyzer = RetryAnalyzer.class)
+    @Step("Ddsdiscount test")
+    @Test(testName = "DDsDiscounts Page",retryAnalyzer = RetryAnalyzer.class)
 
     public void testDdsDiscounts() throws InterruptedException {
+
         homePage
-                //.closeCookie ()
-//                .verifySignInModalWindowDisplay()
-//                .verifyHomePageLogoAndImage()
-//                .verifyHomePageTextsAndTittle()
-//                .footerLinksList()
-//                .allLinksOnHomePage()
-//                .navMenuList()
-//                .clickFooterAboutUsLinksAndVerifyUrlAndTittle()
-//                .clickFooterCareersPageAndVerifyUrlAndTittle()
-//                .clickFooterSocialResponsibilityPageAndVerifyUrlAndTittle()
-//                .clickFooterDiversityPageAndVerifyUrlAndTittle()
-//                .clickFooterInvestorsPageAndVerifyUrlAndTittle()
-//                .clickFooterProductsPageAndVerifyUrlAndTittle()
-//                .clickFooterContactUsPageAndVerifyUrlAndTittle()
-//                .clickFooterAssociatesPageAndVerifyUrlAndTittle()
-//                .clickFooterLegalNoticesLinksAndVerifyUrlAndTittle()
+                .closeCookie ()
+                .verifySignInModalWindowDisplay()
+                //.verifyHomePageLogoAndImage()
+                .verifyHomePageTextsAndTittle()
+                .footerLinksList()
+                .allLinksOnHomePage()
+                .navMenuList()
+                .clickFooterAboutUsLinksAndVerifyUrlAndTittle()
+                .clickFooterCareersPageAndVerifyUrlAndTittle()
+                .clickFooterSocialResponsibilityPageAndVerifyUrlAndTittle()
+                .clickFooterDiversityPageAndVerifyUrlAndTittle()
+                .clickFooterInvestorsPageAndVerifyUrlAndTittle()
+                .clickFooterProductsPageAndVerifyUrlAndTittle()
+                .clickFooterAssociatesPageAndVerifyUrlAndTittle()
+                .clickFooterLegalNoticesLinksAndVerifyUrlAndTittle()
                 .clickFooterComparisonPricingLinksAndVerifyUrlAndTittle()
                 .clickFooterSitemapLinksAndVerifyUrlAndTittle()
                 .clickFooterPrivacyLinksAndVerifyUrlAndTittle()
                 .clickFooterAccessibilityLinksAndVerifyUrlAndTittle()
                 .clickFooterDoNotCookieAndVerify()
-                .clickFooterTermsofUseLinksAndVerifyUrlAndTittle();
+                .clickFooterTermsofUseLinksAndVerifyUrlAndTittle()
+                .navigateToContactUsPage();
+
+
 //
-//        careersPage
-//                .clickFooterLinksAndVerifyUrlAndTittles()
-//                .goToInvestorPageViaCompany();
-//
-//        investorPage
-//                .verifyInvestorPageUrlAndTittle();
+        contactUsPageForm
+                .clickFooterContactUsPageAndVerifyUrlAndTittle()
+                .navigateToFoundInStore();
+
+        foundInStorePage
+                .clickFoundInStoreLinkAndVerifyUrlAndTittle();
 
 
     }

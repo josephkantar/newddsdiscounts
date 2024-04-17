@@ -31,14 +31,14 @@ public class DriverFactory {
 
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("--remote-allow-origins=*"); // this method for allow to run on JENKINS
-//                    options.addArguments("start-maximized");
-//                    options.addArguments("disable-infobars");
-//                    options.addArguments("--disable-extensions");
-//                    options.addArguments("--disable-gpu");
-//                    options.addArguments("--disable-dev-shm-usage");
-//                    options.addArguments("--no-sandbox");
-//                    options.addArguments("--incognito");
-//                    options.addArguments("--disable-cache");
+                    options.addArguments("start-maximized");
+                    options.addArguments("disable-infobars");
+                    options.addArguments("--disable-extensions");
+                    options.addArguments("--disable-gpu");
+                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--no-sandbox");
+                    //options.addArguments("--incognito");
+                    options.addArguments("--disable-cache");
                     options.setPageLoadStrategy(PageLoadStrategy.NORMAL); // THIS METHOD check if the page load or not
                     driver = new ChromeDriver(options);
                     //driver.get("chrome://settings/clearBrowserData");

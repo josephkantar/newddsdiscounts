@@ -2,6 +2,8 @@ package com.newddsdiscounts.tests;
 
 import com.newddsdiscounts.driver.DriverManager;
 
+import com.newddsdiscounts.pages.ContactUsPageForm;
+import com.newddsdiscounts.pages.FoundInStorePage;
 import com.newddsdiscounts.pages.HomePage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -13,8 +15,8 @@ import static com.newddsdiscounts.driver.Driver.quitDriver;
 public class BaseTest {
 
    HomePage homePage;
-   //InvestorPage investorPage;
-   //CareersPage careersPage;
+   ContactUsPageForm contactUsPageForm;
+   FoundInStorePage foundInStorePage;
 
     @BeforeMethod
 
@@ -22,8 +24,8 @@ public class BaseTest {
 
         initDriver();
         homePage=new HomePage(DriverManager.getDriver());
-        //investorPage =new InvestorPage(DriverManager.getDriver());
-        //careersPage =new CareersPage(DriverManager.getDriver());
+        foundInStorePage =new FoundInStorePage(DriverManager.getDriver());
+        contactUsPageForm =new ContactUsPageForm(DriverManager.getDriver());
     }
 
     @AfterMethod

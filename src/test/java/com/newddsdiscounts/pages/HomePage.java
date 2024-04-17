@@ -19,6 +19,7 @@ import static com.newddsdiscounts.constants.FrameworkConstants.getUrl;
 import static com.newddsdiscounts.utils.BrowserUtils.click;
 import static com.newddsdiscounts.utils.BrowserUtils.navigateTo_URL;
 import static com.newddsdiscounts.utils.JSUtils.*;
+import static com.newddsdiscounts.utils.JSUtils.scrollIntoViewJS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -109,10 +110,6 @@ public class HomePage extends BasePage {
     private WebElement ddsLogoAltTextLink;
     @FindBy(xpath = "//div[@id='onetrust-close-btn-container']//button[@aria-label='Close']")
     private WebElement closeCookieButton;
-    @FindBy(xpath = "//a[@href='http://partners.rossstores.com/index.html'][text()='dd’s Freight Routing Guide']\n")
-    private WebElement ddsFreight;
-    @FindBy(xpath = "//a[@href='http://partners.rossstores.com/index.html'][text()='Ross Freight Routing Guide']")
-    private WebElement rossFreight;
     @FindBy(xpath = "//div[@id='mainfooter']")
     private WebElement pageFooter;
     @FindBy(xpath = "//li[@id='menu-item-21']//a[@href='https://www.ddsdiscounts.com/about-us/']")
@@ -191,7 +188,13 @@ public class HomePage extends BasePage {
 
         Allure.step("The user navigates to the home page " + getUrl());
         navigateTo_URL(getUrl());
-        click(closeCookieButton);
+        if (closeCookieButton.isDisplayed()) {
+            closeCookieButton.click();
+        }else {
+
+        }
+
+        //click(closeCookieButton);
 
         return this;
     }
@@ -275,20 +278,20 @@ public class HomePage extends BasePage {
         Allure.step("Check that HomePage Logo And Image displayed as expected.");
 
         if (signInModalWindow.isDisplayed()) {
-
             WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
+            click(closeSignInModalWindow);
 
         } else {
-            System.out.println("Modal windows is not displayed on the webpage");
 
         }
+
 
         if (ddsLogoTopPage.isDisplayed()) {
             System.out.println("DDs Logo on top of the page is displayed");
         } else {
             System.out.println("Logo is not displayed on the webpage");
         }
+
 
         //CAROUSEL IMAGES
         driver.findElement(By.xpath("//div[@class='carousel-indicators inverted']//span[@role='listitem']//span[contains(text(), 'SPRING IS IN THE FLAIR')]")).click();
@@ -526,16 +529,17 @@ public class HomePage extends BasePage {
         System.out.println(actualFooterAboutUsLinkUrl);
         String expectedFooterAboutUsLinkUrl = "https://www.ddsdiscounts.com/about-us/";
         Assert.assertEquals(actualFooterAboutUsLinkUrl, expectedFooterAboutUsLinkUrl);
-        System.out.println("Assert URL passed");
+        System.out.println("About Us URL passed");
 
         String actualFooterAboutUsLinkTittle = driver.getTitle();
         System.out.println(actualFooterAboutUsLinkTittle);
         String expectedFooterAboutUsLinkTittle = "About Us - dd's DISCOUNTS®";
         Assert.assertEquals(actualFooterAboutUsLinkTittle, expectedFooterAboutUsLinkTittle);
-        System.out.println("Assert Tittle passed");
+        System.out.println("About Us  Tittle passed");
         //driver.navigate().back();
 
-        click(aboutUsSearchForJobsButton);
+        scrollIntoViewJS(aboutUsSearchForJobsButton);
+        jsScrollClick(aboutUsSearchForJobsButton);
         String parentWindow1 = driver.getWindowHandle();
         Set<String> handles1 = driver.getWindowHandles();
         for (String windowHandle : handles1) {
@@ -551,6 +555,7 @@ public class HomePage extends BasePage {
         }
         driver.switchTo().window(parentWindow1); //cntrl to parent window
 
+        scrollIntoViewJS(aboutUsFirstBookButton);
         click(aboutUsFirstBookButton);
         String parentWindow2 = driver.getWindowHandle();
         Set<String> handles2 = driver.getWindowHandles();
@@ -567,6 +572,7 @@ public class HomePage extends BasePage {
         }
         driver.switchTo().window(parentWindow2); //cntrl to parent window
 
+        scrollIntoViewJS(aboutUsBGCAButton);
         jsScrollClick(aboutUsBGCAButton);
         String parentWindow3 = driver.getWindowHandle();
         Set<String> handles3 = driver.getWindowHandles();
@@ -583,6 +589,7 @@ public class HomePage extends BasePage {
         }
         driver.switchTo().window(parentWindow3); //cntrl to parent window
 
+        scrollIntoViewJS(aboutUsDinoImage);
         boolean dinoImage = aboutUsDinoImage.isDisplayed();
         System.out.println(" About Us dinoImage  " + dinoImage);
         // tittles and texts p displayed
@@ -609,14 +616,14 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  Careers  Links  on footer and verify Url and Tittle");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
+//        if (signInModalWindow.isDisplayed()) {
+//
+//            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
+//            closeSignInModalWindow.click();
+//
+//        } else {
+//
+//        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -645,14 +652,6 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  Social responsibility Links  on footer and verify Url and Tittle");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -723,14 +722,6 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  Diversity  Links  on footer and verify Url and Tittle");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -752,18 +743,11 @@ public class HomePage extends BasePage {
 
         return this;
     }
+
     public HomePage clickFooterInvestorsPageAndVerifyUrlAndTittle() throws InterruptedException {
 
-        Allure.step("The user clicks  Investers  Links  on footer and verify Url");
+        Allure.step("The user clicks  Investors  Links  on footer and verify Url");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -790,14 +774,6 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  Products Sourcing  Links  on footer and verify Url");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -814,6 +790,7 @@ public class HomePage extends BasePage {
             }
 
         }
+
         driver.close();
         driver.switchTo().window(parentWindow3); //cntrl to parent window
 
@@ -824,14 +801,6 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  Associates  Links  on footer and verify Url");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -861,14 +830,6 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  ComparisonPricing  Links  on footer and verify Url and Tittle");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -888,14 +849,6 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  SiteMap  Links  on footer and verify Url and Tittle");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
@@ -1024,7 +977,7 @@ public class HomePage extends BasePage {
         waitForVisibility(footerDoNotSellLink);
         jsexecutor7.executeScript("arguments[0].click();", footerDoNotSell);
 
-        click(footerDoNotSellLink);
+        jsScrollClick(footerDoNotSellLink);
         boolean oneTrustWindow = driver.findElement(By.xpath("//div[@id='ot-pc-content']")).isDisplayed();
         System.out.println(oneTrustWindow + " oneTrustWindow box is  displayed");
 
@@ -1038,20 +991,11 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks  LegalNotices  Links  on footer and verify Url and Tittle");
 
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
-
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
         Thread.sleep(2000);
 
-        click(footerLegalNotices);
+        jsScrollClick(footerLegalNotices);
         Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.ddsdiscounts.com/legal-notices/");
         assertThat(DriverManager.getDriver().getTitle(), containsString("Legal Notices and Recalled Products - dd's DISCOUNTS®"));
 
@@ -1102,124 +1046,26 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public HomePage clickFooterContactUsPageAndVerifyUrlAndTittle() throws InterruptedException {
-
-        Allure.step("The user clicks  Products Sourcing  Links  on footer and verify Url");
-
-        if (signInModalWindow.isDisplayed()) {
-
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            closeSignInModalWindow.click();
-
-        } else {
-
-        }
+    public ContactUsPageForm navigateToContactUsPage() throws InterruptedException {
+        Allure.step("The user navigate to contact Us page");
 
         navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
         Thread.sleep(2000);
 
-        click(footerContactUsLink);
-        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.ddsdiscounts.com/contact-us/");
-        assertThat(DriverManager.getDriver().getTitle(), containsString("Contact Us"));
-        //Contact Us tittles and Text and make sure FORM disp;ayed
-        boolean returnPolicyTittle = driver.findElement(By.xpath("//span[contains(text(),'General Return Policy')]")).isDisplayed();
-        System.out.println("returnPolicy Tittle is displayed " + returnPolicyTittle);
-        driver.findElement(By.xpath("//span[contains(text(),'General Return Policy')]")).click();
-        boolean returnPolicyText = driver.findElement(By.xpath("//p[contains(text(),'dd’s DISCOUNTS uses a refund verification system. ')]")).isDisplayed();
-        System.out.println("returnPolicy Text is displayed " + returnPolicyText);
+        String contactUsUrl = "https://www.ddsdiscounts.com/contact-us/";
 
-        boolean faqTittle = driver.findElement(By.xpath("//h2[contains(text(),'FAQ')]")).isDisplayed();
-        System.out.println("faqTittle is displayed " + faqTittle);
+        jsScrollClick(footerContactUsLink);
+        String parentWindow6 = driver.getWindowHandle();
+        Set<String> handles6 = driver.getWindowHandles();
+        for (String windowHandle : handles6) {
+            if (!windowHandle.equals(parentWindow6)) {
+                driver.switchTo().window(windowHandle);
+                driver.navigate().to(contactUsUrl);
+            }
 
-        scrollIntoViewJS(faqQuestion1);
-        boolean question1 = (faqQuestion1).isDisplayed();
-        System.out.println("question1 is displayed " + question1);
-        click(faqQuestion1);
-        Thread.sleep(1000);
-        boolean faqAnswer1  = driver.findElement(By.xpath("//p[contains(text(),'No, merchandise cannot be purchased online. The op')]")).isDisplayed();
-        System.out.println("faqAnswer1 Text is displayed " + faqAnswer1);
-        Thread.sleep(1000);
-
-        scrollIntoViewJS(faqQuestion2);
-        boolean question2 = (faqQuestion2).isDisplayed();
-        System.out.println("question1 is displayed " + question2);
-        click(faqQuestion2);
-        Thread.sleep(1000);
-        boolean faqAnswer2  = driver.findElement(By.xpath("//p[contains(text(),'We do not provide itemized merchandise searches. B')]")).isDisplayed();
-        System.out.println("faqAnswer2 Text is displayed " + faqAnswer2);
-
-
-        scrollIntoViewJS(faqQuestion3);
-        boolean question3 = (faqQuestion3).isDisplayed();
-        System.out.println("question3 is displayed " + question3);
-        jsScrollClick(faqQuestion3);
-        Thread.sleep(1000);
-        boolean faqAnswer3  = driver.findElement(By.xpath("//p[contains(text(),'There is no expiration on our Gift Cards or Store ')]")).isDisplayed();
-        System.out.println("faqAnswer3 Text is displayed " + faqAnswer3);
-
-
-        scrollIntoViewJS(faqQuestion4);
-        boolean question4 = (faqQuestion4).isDisplayed();
-        System.out.println("question4 is displayed " + question4);
-        jsScrollClick(faqQuestion4);
-        Thread.sleep(1000);
-        boolean faqAnswer4  = driver.findElement(By.xpath("//p[contains(text(),'To make way for new merchandise, we regularly mark')]")).isDisplayed();
-        System.out.println("faqAnswer4 Text is displayed " + faqAnswer4);
-
-        scrollIntoViewJS(faqQuestion5);
-        boolean question5 = (faqQuestion5).isDisplayed();
-        System.out.println("question5 is displayed " + question5);
-        jsScrollClick(faqQuestion5);
-        Thread.sleep(1000);
-        boolean faqAnswer5  = driver.findElement(By.xpath("//p[contains(text(),'No. We look for manufacturer closeouts. Our produc')]")).isDisplayed();
-        System.out.println("faqAnswer5 Text is displayed " + faqAnswer5);
-
-        scrollIntoViewJS(faqQuestion6);
-        boolean question6 = (faqQuestion6).isDisplayed();
-        System.out.println("question6 is displayed " + question6);
-        jsScrollClick(faqQuestion6);
-        Thread.sleep(1000);
-        boolean faqAnswer6  = driver.findElement(By.xpath("//p[contains(text(),'No. dd’s DISCOUNTS does not offer any type of bulk')]")).isDisplayed();
-        System.out.println("faqAnswer6 Text is displayed " + faqAnswer6);
-
-        scrollIntoViewJS(faqQuestion7);
-        boolean question7 = (faqQuestion7).isDisplayed();
-        System.out.println("question7 is displayed " + question7);
-        jsScrollClick(faqQuestion7);
-        Thread.sleep(1000);
-        boolean faqAnswer7  = driver.findElement(By.xpath("//a[contains(text(),'Supporting Our Communities')]")).isDisplayed();
-        System.out.println("faqAnswer7 Text is displayed " + faqAnswer7);
-
-        scrollIntoViewJS(faqQuestion8);
-        boolean question8 = (faqQuestion8).isDisplayed();
-        System.out.println("question8 is displayed " + question8);
-        jsScrollClick(faqQuestion8);
-        Thread.sleep(1000);
-        boolean faqAnswer8  = driver.findElement(By.xpath("//p[contains(text(),'If you are having trouble accessing information')]")).isDisplayed();
-        System.out.println("faqAnswer8 Text is displayed " + faqAnswer8);
-
-        scrollIntoViewJS(faqQuestion9);
-        boolean question9 = (faqQuestion9).isDisplayed();
-        System.out.println("question9 is displayed " + question9);
-        jsScrollClick(faqQuestion9);
-        Thread.sleep(1000);
-        boolean faqAnswer9  = driver.findElement(By.xpath("//a[contains(text(),'store locator')]")).isDisplayed();
-        System.out.println("faqAnswer9 Text is displayed " + faqAnswer9);
-
-        scrollIntoViewJS(faqQuestion10);
-        boolean question10 = (faqQuestion10).isDisplayed();
-        System.out.println("question10 is displayed " + question10);
-        jsScrollClick(faqQuestion10);
-        Thread.sleep(1000);
-        boolean faqAnswer10  = driver.findElement(By.xpath("//a[contains(text(),'https://MyRoss.rossstores.com')]")).isDisplayed();
-        System.out.println("faqAnswer10 Text is displayed " + faqAnswer10);
-
-        boolean contacUsForm = contacUsFormSection.isDisplayed();
-        System.out.println("contacUsForm Section is displayee" + contacUsForm);
-
-
-        return this;
+        }
+        return new ContactUsPageForm(driver);
     }
 }
 
