@@ -267,6 +267,7 @@ public class ContactUsPageForm extends BasePage {
         Allure.step("The user verify that they are able to create CustomerService form ");
 
         navigateTo_URL(getContactUsUrl());
+        Thread.sleep(1000);
         scrollIntoViewJS(contactUsFormBody);
         Thread.sleep(1000);
 
@@ -285,11 +286,11 @@ public class ContactUsPageForm extends BasePage {
         Select storeState = new Select(driver.findElement(By.xpath("//select[@id='form-state']")));
         storeState.selectByValue("TX");
         WebElement noReceiptButton = contactUsFormReceiptNo;
-        noReceiptButton.click();
+        jsScrollClick(noReceiptButton);
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
@@ -322,7 +323,7 @@ public class ContactUsPageForm extends BasePage {
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
@@ -355,7 +356,7 @@ public class ContactUsPageForm extends BasePage {
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
@@ -386,7 +387,7 @@ public class ContactUsPageForm extends BasePage {
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
@@ -417,7 +418,7 @@ public class ContactUsPageForm extends BasePage {
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
@@ -448,7 +449,7 @@ public class ContactUsPageForm extends BasePage {
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
@@ -479,7 +480,7 @@ public class ContactUsPageForm extends BasePage {
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
@@ -510,7 +511,7 @@ public class ContactUsPageForm extends BasePage {
 
         contactUsFormMessageField.sendKeys("This is for testing, please ignore it");
         Thread.sleep(1000);
-        click(contactUsFormSubmitButton);
+        jsScrollClick(contactUsFormSubmitButton);
         Thread.sleep(1000);
 
         boolean successMessage = contactUsFormConfirmation.isDisplayed();
