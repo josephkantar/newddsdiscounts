@@ -5,6 +5,7 @@ import com.newddsdiscounts.driver.DriverManager;
 import com.newddsdiscounts.pages.ContactUsPageForm;
 import com.newddsdiscounts.pages.FoundInStorePage;
 import com.newddsdiscounts.pages.HomePage;
+import com.newddsdiscounts.pages.StoreLocatorPage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -17,6 +18,7 @@ public class BaseTest {
    HomePage homePage;
    ContactUsPageForm contactUsPageForm;
    FoundInStorePage foundInStorePage;
+   StoreLocatorPage storeLocatorPage;
 
     @BeforeMethod
 
@@ -26,6 +28,7 @@ public class BaseTest {
         homePage=new HomePage(DriverManager.getDriver());
         foundInStorePage =new FoundInStorePage(DriverManager.getDriver());
         contactUsPageForm =new ContactUsPageForm(DriverManager.getDriver());
+        storeLocatorPage = new StoreLocatorPage(DriverManager.getDriver());
     }
 
     @AfterMethod

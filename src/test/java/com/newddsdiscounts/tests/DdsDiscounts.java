@@ -23,9 +23,15 @@ public class DdsDiscounts extends BaseTest{
                 .footerLinksList()
                 .allLinksOnHomePage()
                 .navMenuList()
+                .verifySocialLinksEmailSignUpl()
+                .verifySocialLinksEmailUnsubcribe()
+                .verifySocialLinksInstagram()
+                .verifySocialLinksFacebook()
+                .verifySocialLinksTiktok()
                 .clickFooterAboutUsLinksAndVerifyUrlAndTittle()
                 .clickFooterCareersPageAndVerifyUrlAndTittle()
                 .clickFooterSocialResponsibilityPageAndVerifyUrlAndTittle()
+                .verifyFooterSignUpModal()
                 .clickFooterDiversityPageAndVerifyUrlAndTittle()
                 .clickFooterInvestorsPageAndVerifyUrlAndTittle()
                 .clickFooterProductsPageAndVerifyUrlAndTittle()
@@ -39,8 +45,6 @@ public class DdsDiscounts extends BaseTest{
                 .clickFooterTermsofUseLinksAndVerifyUrlAndTittle()
                 .navigateToContactUsPage();
 
-
-//
         contactUsPageForm
                 .clickFooterContactUsPageAndVerifyUrlAndTittle()
                 .verifyRequiredFieldsContactUsform()
@@ -54,7 +58,6 @@ public class DdsDiscounts extends BaseTest{
                 .createFormTopicOther()
                 .navigateToFoundInStore();
 
-
         foundInStorePage
                 .clickFoundInStoreLinkAndVerifyUrlAndTittle()
                 .verifyTittlesAndTexts()
@@ -64,7 +67,11 @@ public class DdsDiscounts extends BaseTest{
                 .clickFoundInStoreSelectKidsFromDropdown()
                 .clickFoundInStoreSelectShoesFromDropdown()
                 .clickFoundInStoreSelectHomeFromDropdown()
-                .clickFoundInStoreSelectMoreFromDropdown();
+                .clickFoundInStoreSelectMoreFromDropdown()
+                .navigateToStoreLocatorPage();
+
+        storeLocatorPage
+                .verifyStoreLocatorPage();
 
 
     }

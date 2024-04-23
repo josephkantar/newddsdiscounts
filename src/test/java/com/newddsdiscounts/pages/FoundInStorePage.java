@@ -13,8 +13,7 @@ import org.testng.Assert;
 import java.io.File;
 import java.time.Duration;
 
-import static com.newddsdiscounts.constants.FrameworkConstants.getFoundInStoreUrl;
-import static com.newddsdiscounts.constants.FrameworkConstants.getUrl;
+import static com.newddsdiscounts.constants.FrameworkConstants.*;
 import static com.newddsdiscounts.utils.JSUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -426,6 +425,18 @@ public class FoundInStorePage extends BasePage {
 
         return this;
 
+    }
+
+    public StoreLocatorPage navigateToStoreLocatorPage() throws InterruptedException {
+        Allure.step("The user navigate to StoreLocator page");
+
+        navigateTo_URL(getStoreLocatorUrl());
+        Thread.sleep(2000);
+
+//        WebElement sendESC = driver.findElement(By.tagName("body"));
+//        sendESC.sendKeys(Keys.ESCAPE);
+
+        return new StoreLocatorPage(driver);
     }
 
 

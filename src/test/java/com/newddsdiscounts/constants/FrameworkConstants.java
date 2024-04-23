@@ -23,11 +23,8 @@ public class FrameworkConstants {
     public static String getContactUsUrl() {
         return contactUsUrl;
     }
-    public static String getFoundInStoreUrl() { return foundInStoreUrl;
-    //public static String getStoreLocatorUrl() { return storeLocatorUrl;
-
+    public static String getFoundInStoreUrl() { return foundInStoreUrl;}
+    public static String getStoreLocatorUrl () { return storeLocatorUrl; }
 
     }
 
-
-}

@@ -3,6 +3,7 @@ package com.newddsdiscounts.pages;
 import com.newddsdiscounts.driver.DriverManager;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -94,8 +95,8 @@ public class HomePage extends BasePage {
     private WebElement footerSignInTermsAndUse;
     @FindBy(xpath = "//div[@class='disclaimer']//a[@href='/privacy-policy/']")
     private WebElement footerSignInPrivacyPolicy;
-    @FindBy(xpath = "//button[@type=\"submit\"]//span[contains(text(),'Sign Me Up')]")
-    private WebElement footerSignInSignMeUpButton;
+    @FindBy(xpath = "//section[@class='card block___email-signup']//span[contains(text(),'Sign Me Up')]")
+    private WebElement emailSignInPageSignMeUpButton;
     //footer
     @FindBy(xpath = "//span[contains(text(),'©2024 Ross Stores, Inc. All rights reserved')]")
     private WebElement footerText1;
@@ -141,6 +142,47 @@ public class HomePage extends BasePage {
     private WebElement footerSiteMapLink;
     @FindBy(xpath = "//button[@class='ot-sdk-show-settings']")
     private WebElement footerDoNotSellLink;
+    @FindBy(xpath = "//section[@id='footer-email-signup']")
+    private WebElement footerSignUpSection;
+    @FindBy(xpath = "//div[@class='form-group col-12 col-lg-8']//input[@class='form-control']")
+    private WebElement footerSignUpSectionNameField;
+    @FindBy(xpath = "//div[@class='form-group col-12']//input[@class='form-control']")
+    private WebElement footerSignUpSectionEmailField;
+    @FindBy(xpath = "//div[@class='form-group col-12 col-lg-4']//input[@class='form-control']")
+    private WebElement footerSignUpSectionZipCodeField;
+    @FindBy(xpath = "//section[@id='footer-email-signup']//button[@type='submit']")
+    private WebElement footerSignUpSectionSubmitBUtton;
+
+    @FindBy(xpath = "//section[@id='footer-email-signup']//button[@type='submit']")
+    private WebElement navMEnuEmailSignUpPageSignMeInButton;
+    @FindBy(xpath = "//h2[contains(text(),'Thank You!')]")
+    private WebElement footerSignUpSuccessMessage;
+
+    //SOCIAL LINKS AND EMAIL SIGN IN - UNSUBCRIBE
+
+    @FindBy(xpath = "//a[contains(text(),'unsubscribe')]")
+    private WebElement navMenuSocialLinksUnsubcribe;
+    @FindBy(xpath = "//p[contains(text(),'We’re sorry to see you go, but you’re always welco')]")
+    private WebElement navMenuSocialLinksUnsubcribePageText;
+    @FindBy(xpath = "//input[@id='form-email']")
+    private WebElement navMenuSocialLinksUnsubcribePageEmailField;
+    @FindBy(xpath = "//span[contains(text(),'Submit')]")
+    private WebElement navMenuSocialLinksUnsubcribePageSubmitButton;
+    @FindBy(xpath = "//h2[contains(text(),'We’re sad to see you go!')]")
+    private WebElement unsubscribeSuccessMessage;
+
+
+
+    @FindBy(xpath = "//li[@id='menu-item-30']//a[@href='https://www.ddsdiscounts.com/email-sign-up/']")
+    private WebElement navMenuSocialLinksEmailSignUp;
+    @FindBy(xpath = "//li[@id='menu-item-32']//a[@href='https://www.instagram.com/ddsdiscounts']")
+    private WebElement navMenuSocialLinksInstagram;
+    @FindBy(xpath = "//li[@id='menu-item-31']//a[@href='https://www.facebook.com/ddsdiscounts']")
+    private WebElement navMenuSocialLinksFacebook;
+    @FindBy(xpath = "//li[@id='menu-item-1048']//a[@href='https://www.tiktok.com/@ddsdiscounts?lang=en']")
+    private WebElement navMenuSocialLinksTiktok;
+
+
 
 
     //BUTTONS
@@ -181,6 +223,8 @@ public class HomePage extends BasePage {
     private WebElement contacUsFormSection;
 
 
+
+
 //careers, social responsibiity, diversity, investors, products, for asso, access
 
     public HomePage verifySignInModalWindowDisplay() throws InterruptedException {
@@ -202,6 +246,8 @@ public class HomePage extends BasePage {
         } else {
             System.out.println("clear the cache the webpage and try again ");
         }
+
+
 
         WebElement sendESC = driver.findElement(By.tagName("body"));
         int numberOfTimesESC = 4;
@@ -275,9 +321,9 @@ public class HomePage extends BasePage {
         System.out.println(" footerSignInTermsAndUse1 displayed " + footerSignInTermsAndUse1);
         boolean footerSignInPrivacyPolicy1 = footerSignInPrivacyPolicy.isDisplayed();
         System.out.println(" footer SignIn Privacy Policy1 displayed " + footerSignInPrivacyPolicy1);
-        boolean footerSignInSignMeUpButton1 = footerSignInSignMeUpButton.isDisplayed();
-        System.out.println(" footer SignIn SignMe Up Button1 displayed " + footerSignInSignMeUpButton1);
-        //footer text and tittle
+//        boolean footerSignInSignMeUpButton1 = footerSignInSignMeUpButton.isDisplayed();
+//        System.out.println(" footer SignIn SignMe Up Button1 displayed " + footerSignInSignMeUpButton1);
+//        //footer text and tittle
         boolean footerTittle = footerText1.isDisplayed();
         System.out.println(" footer Tittle displayed " + footerTittle);
         boolean footerText = footerText1.isDisplayed();
@@ -543,9 +589,129 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    public HomePage verifySocialLinksEmailSignUpl() throws InterruptedException {
+
+        Allure.step("The user clicks EmailSignUp on Nav menu Social LINKS");
+
+
+        navigateTo_URL(getUrl());
+        jsScrollClick(navMenuSocialLinksEmailSignUp);
+        Thread.sleep(2000);
+
+        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.ddsdiscounts.com/email-sign-up/");
+        assertThat(DriverManager.getDriver().getTitle(), containsString("Email Sign-Up"));
+
+        System.out.println("maxlength for name field is " +footerSignUpSectionNameField.getAttribute("maxlength"));
+        System.out.println("maxlength for email field is " +footerSignUpSectionEmailField.getAttribute("maxlength"));
+        System.out.println("maxlength for zip code field is " + footerSignUpSectionZipCodeField.getAttribute("maxlength"));
+
+//        WebElement hiddenElement =footerSignUpSectionNameField;
+//        ((JavascriptExecutor)driver).executeScript("arguments[0].type = 'text';", hiddenElement);
+//
+        footerSignUpSectionNameField.sendKeys("Tester Name");
+        footerSignUpSectionEmailField.sendKeys("Test@test.com");
+        footerSignUpSectionZipCodeField.sendKeys("78613");
+        jsScrollClick(emailSignInPageSignMeUpButton);
+
+        boolean footerSignUpSuccessMessageDisplayed = footerSignUpSuccessMessage.isDisplayed();
+        System.out.println("success message is displayed " + footerSignUpSuccessMessageDisplayed );
+
+        return this;
+    }
+
+    public HomePage verifySocialLinksEmailUnsubcribe() throws InterruptedException {
+
+        Allure.step("The user clicks unsubcribe on emailsignup page");
+
+
+        navigateTo_URL(getUrl());
+        jsScrollClick(navMenuSocialLinksEmailSignUp);
+        Thread.sleep(2000);
+
+        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.ddsdiscounts.com/email-sign-up/");
+        assertThat(DriverManager.getDriver().getTitle(), containsString("Email Sign-Up"));
+
+        jsScrollClick(navMenuSocialLinksUnsubcribe);
+
+
+        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.ddsdiscounts.com/email-sign-up/unsubscribe/");
+        assertThat(DriverManager.getDriver().getTitle(), containsString("Unsubscribe"));
+
+
+        boolean unsubscribePageText = navMenuSocialLinksUnsubcribePageText.isDisplayed();
+        System.out.println("unsubscribePageText is displayed " + unsubscribePageText);
+
+        navMenuSocialLinksUnsubcribePageEmailField.sendKeys("Test@test.com");
+        Thread.sleep(2000);
+        jsScrollClick(navMenuSocialLinksUnsubcribePageSubmitButton);
+        Thread.sleep(1000);
+
+        boolean unsubscribeSuccess = unsubscribeSuccessMessage.isDisplayed();
+        System.out.println("unsubscribe success message is displayed " + unsubscribeSuccess);
+
+        return this;
+    }
+
+    public HomePage verifySocialLinksInstagram() throws InterruptedException {
+
+        Allure.step("The user clicks instagram on Nav menu Social LINKS and verify URL and Tittle");
+
+
+        navigateTo_URL(getUrl());
+
+        WebElement instagramlink = navMenuSocialLinksInstagram;
+        ((JavascriptExecutor)driver).executeScript("arguments[0].removeAttribute('target');", instagramlink);
+        jsScrollClick(navMenuSocialLinksInstagram);
+        Thread.sleep(4000);
+
+        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.instagram.com/ddsdiscounts/");
+        //assertThat(DriverManager.getDriver().getTitle(), containsString("Email Sign-Up"));
+
+
+        return this;
+    }
+
+    public HomePage verifySocialLinksFacebook() throws InterruptedException {
+
+        Allure.step("The user clicks facebook on Nav menu Social LINKS and verify URL and Tittle");
+
+
+        navigateTo_URL(getUrl());
+        WebElement facebooklink = navMenuSocialLinksFacebook;
+
+        ((JavascriptExecutor)driver).executeScript("arguments[0].removeAttribute('target');", facebooklink);
+        jsScrollClick(navMenuSocialLinksFacebook);
+        Thread.sleep(4000);
+
+        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.facebook.com/ddsDISCOUNTS/");
+        assertThat(DriverManager.getDriver().getTitle(), containsString("dd's DISCOUNTS | Facebook"));
+
+        return this;
+    }
+
+    public HomePage verifySocialLinksTiktok() throws InterruptedException {
+
+        Allure.step("The user clicks Tiktok on Nav menu Social LINKS and verify URL and Tittle");
+
+
+        navigateTo_URL(getUrl());
+        WebElement tiktoklink = navMenuSocialLinksTiktok;
+
+        ((JavascriptExecutor)driver).executeScript("arguments[0].removeAttribute('target');", tiktoklink);
+        jsScrollClick(navMenuSocialLinksTiktok);
+        Thread.sleep(4000);
+
+        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.tiktok.com/@ddsdiscounts?lang=en");
+        //assertThat(DriverManager.getDriver().getTitle(), containsString("Log in | TikTok"));
+
+        return this;
+    }
+
     public HomePage clickFooterAboutUsLinksAndVerifyUrlAndTittle() throws InterruptedException {
 
         Allure.step("The user clicks  About us  Links  on footer and verify Url and Tittle");
+
+        navigateTo_URL(getUrl());
 
         if (signInModalWindow.isDisplayed()) {
 
@@ -556,7 +722,7 @@ public class HomePage extends BasePage {
 
         }
 
-        navigateTo_URL(getUrl());
+        //navigateTo_URL(getUrl());
         scrollIntoViewJS(pageFooter);
         Thread.sleep(2000);
 
@@ -754,6 +920,33 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    public HomePage verifyFooterSignUpModal() throws InterruptedException {
+
+        Allure.step("The user clicks  Diversity  Links  on footer and verify Url and Tittle");
+
+
+        navigateTo_URL(getUrl());
+        scrollIntoViewJS(footerSignUpSection);
+        Thread.sleep(2000);
+
+        System.out.println("maxlength for name field is " +footerSignUpSectionNameField.getAttribute("maxlength"));
+        System.out.println("maxlength for email field is " +footerSignUpSectionEmailField.getAttribute("maxlength"));
+        System.out.println("maxlength for zip code field is " + footerSignUpSectionZipCodeField.getAttribute("maxlength"));
+
+//        WebElement hiddenElement =footerSignUpSectionNameField;
+//        ((JavascriptExecutor)driver).executeScript("arguments[0].type = 'text';", hiddenElement);
+//
+//        footerSignUpSectionNameField.sendKeys("Tester Name");
+//        footerSignUpSectionEmailField.sendKeys("Test@test.com");
+//        footerSignUpSectionZipCodeField.sendKeys("78613");
+//        jsScrollClick(footerSignUpSectionSubmitBUtton);
+
+//        boolean footerSignUpSuccessMessageDisplayed = footerSignUpSuccessMessage.isDisplayed();
+//        System.out.println("success message is displayed " + footerSignUpSuccessMessageDisplayed );
+
+        return this;
+    }
+
     public HomePage clickFooterDiversityPageAndVerifyUrlAndTittle() throws InterruptedException {
 
         Allure.step("The user clicks  Diversity  Links  on footer and verify Url and Tittle");
@@ -815,7 +1008,7 @@ public class HomePage extends BasePage {
         scrollIntoViewJS(pageFooter);
         Thread.sleep(2000);
 
-        click(footerProductsSourcing);
+        jsScrollClick(footerProductsSourcing);
         String parentWindow3 = driver.getWindowHandle();
         Set<String> handles3 = driver.getWindowHandles();
         for (String windowHandle : handles3) {
