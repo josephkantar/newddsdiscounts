@@ -5,15 +5,17 @@ import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.io.File;
+import java.time.Duration;
 
 import static com.newddsdiscounts.constants.FrameworkConstants.getFoundInStoreUrl;
 import static com.newddsdiscounts.constants.FrameworkConstants.getUrl;
-import static com.newddsdiscounts.utils.JSUtils.jsScrollClick;
-import static com.newddsdiscounts.utils.JSUtils.scrollIntoViewJS;
+import static com.newddsdiscounts.utils.JSUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
@@ -37,12 +39,18 @@ public class FoundInStorePage extends BasePage {
     private WebElement categoryKids;
     @FindBy(xpath = "//button[@data-filterslug='shoes']")
     private WebElement categoryShoes;
-    @FindBy(xpath = "//button[@data-filterslug='for-the-home']")
+    @FindBy(xpath = "//ul[@class='dropdown-menu show']//button[@data-filterslug='for-the-home']")
     private WebElement categoryHome;
-    @FindBy(xpath = "//button[@data-filterslug='more']")
+    @FindBy(xpath = "//ul[@class='dropdown-menu show']//button[@data-filterslug='more']")
     private WebElement categoryMore;
     @FindBy(xpath = "//button[@data-filterslug='view-all']")
     private WebElement categoryAll;
+
+//    @FindBy(xpath = "//div[@id='onetrust-pc-sdk']//button[@id='close-pc-btn-handler']")
+//    private WebElement closeCookieButton;
+
+    @FindBy(xpath = "//div[@class='ot-sdk-container']//..//..//.//..//button[@id='close-pc-btn-handler']")
+    private WebElement closeCookieButton;
 
 
     public FoundInStorePage clickFoundInStoreLinkAndVerifyUrlAndTittle() throws InterruptedException {
@@ -55,6 +63,8 @@ public class FoundInStorePage extends BasePage {
         sendESC.sendKeys(Keys.ESCAPE);
         Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.ddsdiscounts.com/found-in-store/");
         assertThat(DriverManager.getDriver().getTitle(), containsString("Found In Store"));
+
+        //jsScrollClick(closeCookieButton);
 
         return this;
 
@@ -326,14 +336,18 @@ public class FoundInStorePage extends BasePage {
         navigateTo_URL(getFoundInStoreUrl());
         Thread.sleep(2000);
 
+        Thread.sleep(1000);
         boolean dropDownMenuDisplayed = foundIStoreSelectCategory.isDisplayed();
         System.out.println("Dropdownmenu - Home -  is displayed " + dropDownMenuDisplayed);
-        click(foundIStoreSelectCategory);
+        jsScrollClick(foundIStoreSelectCategory);
         Thread.sleep(1000);
+
+        JavascriptExecutor jsexecutor = (JavascriptExecutor) DriverManager.getDriver();
+        jsexecutor.executeScript("window.scrollBy(0, 300)");
 
         WebElement selectHomeDropDown = categoryHome;
         selectHomeDropDown.click();
-        Thread.sleep(4000);
+        Thread.sleep(2000);
 
         driver.switchTo().frame(0);
         Thread.sleep(1000);
@@ -374,15 +388,18 @@ public class FoundInStorePage extends BasePage {
 
         boolean dropDownMenuDisplayed = foundIStoreSelectCategory.isDisplayed();
         System.out.println("Dropdownmenu - more -  is displayed " + dropDownMenuDisplayed);
-        click(foundIStoreSelectCategory);
-        Thread.sleep(1000);
+        jsScrollClick(foundIStoreSelectCategory);
+        Thread.sleep(3000);
+
+        JavascriptExecutor jsexecutor = (JavascriptExecutor) DriverManager.getDriver();
+        jsexecutor.executeScript("window.scrollBy(0, 500)");
 
         WebElement selectMoreDropDown = categoryMore;
         selectMoreDropDown.click();
         Thread.sleep(4000);
 
         driver.switchTo().frame(0);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         WebElement clickImage = driver.findElement(By.xpath("//div[@class='tile-image-wrapper']"));
         jsScrollClick(clickImage);
         Thread.sleep(2000);

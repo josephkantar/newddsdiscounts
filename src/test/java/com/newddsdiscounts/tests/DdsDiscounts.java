@@ -19,7 +19,7 @@ public class DdsDiscounts extends BaseTest{
                 .verifySignInModalWindowDisplay()
                 //.closeCookie ()
                 //.verifyHomePageTextsAndTittle()
-                //.verifyHomePageLogoAndImage()
+                .verifyHomePageLogoAndImage()
                 .footerLinksList()
                 .allLinksOnHomePage()
                 .navMenuList()

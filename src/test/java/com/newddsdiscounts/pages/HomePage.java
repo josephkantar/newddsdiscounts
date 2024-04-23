@@ -291,53 +291,75 @@ public class HomePage extends BasePage {
     public HomePage verifyHomePageLogoAndImage() {
         Allure.step("Check that HomePage Logo And Image displayed as expected.");
 
-        if (signInModalWindow.isDisplayed()) {
-            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
-            click(closeSignInModalWindow);
+        List<WebElement> images = driver.findElements(By.tagName("img"));
 
-        } else {
+        // Iterate through each image element
+        for (WebElement image : images) {
+            // Get the source (URL) of the image
+            String imageURL = image.getAttribute("src");
 
+            // Verify if the image source is not empty
+            if (!imageURL.isEmpty()) {
+                // Check if the image is loaded successfully
+                boolean isImageLoaded = (boolean) ((JavascriptExecutor) driver).executeScript(
+                        "return arguments[0].complete && typeof arguments[0].naturalWidth != 'undefined' && arguments[0].naturalWidth > 0", image);
+
+                // Print the result
+                if (isImageLoaded) {
+                    System.out.println("Image loaded successfully: " + imageURL);
+                } else {
+                    System.out.println("Image failed to load: " + imageURL);
+                }
+            }
         }
 
-
-        if (ddsLogoTopPage.isDisplayed()) {
-            System.out.println("DDs Logo on top of the page is displayed");
-        } else {
-            System.out.println("Logo is not displayed on the webpage");
-        }
-
-
-        //CAROUSEL IMAGES
-        driver.findElement(By.xpath("//div[@class='carousel-indicators inverted']//span[@role='listitem']//span[contains(text(), 'SPRING IS IN THE FLAIR')]")).click();
-        driver.findElement(By.xpath("//button[@aria-label='Pause slide show']")).click();
-
-        boolean carouselSlide1Image1 = carouselImageSlideOneImage1.isDisplayed();
-        System.out.println(" carousel Slide1 Image1 " + carouselSlide1Image1);
-        boolean carouselSlide1Image2 = carouselImageSlideOneImage2.isDisplayed();
-        System.out.println(" carousel Slide1 Image2 " + carouselSlide1Image2);
-        boolean carouselSlide1Image3 = carouselImageSlideOneImage3.isDisplayed();
-        System.out.println(" carousel Slide1 Image3 " + carouselSlide1Image3);
-
-        driver.findElement(By.xpath("//div[@class='carousel-indicators']//span[@role='listitem']//span[contains(text(), 'We’re Hiring!')]")).click();
-
-        boolean carouselSlide2Image1 = carouselImageSlideTwoImage1.isDisplayed();
-        System.out.println(" carousel Slide2 Image1 " + carouselSlide2Image1);
-        // Card Body imagess
-        boolean cardBodyImage1 = cardBodyTikTokImage.isDisplayed();
-        System.out.println(" cardBody Image1 " + cardBodyImage1);
-        boolean cardBodyImage2 = cardBodyHiringImage.isDisplayed();
-        System.out.println(" cardBody Image2 " + cardBodyImage2);
-        boolean cardBodyImage3 = cardBodySignUpImage.isDisplayed();
-        System.out.println(" cardBody Image3 " + cardBodyImage3);
-        //Get Inspired Images
-        boolean inspiredImage1 = getInspiredImage1.isDisplayed();
-        System.out.println(" inspiredImage Image1 " + inspiredImage1);
-        boolean inspiredImage2 = getInspiredImage2.isDisplayed();
-        System.out.println(" inspiredImage Image2 " + inspiredImage2);
-        boolean inspiredImage3 = getInspiredImage3.isDisplayed();
-        System.out.println(" inspiredImage Image3 " + inspiredImage3);
-        boolean inspiredImage4 = getInspiredImage4.isDisplayed();
-        System.out.println(" inspiredImage Image3 " + inspiredImage4);
+//        if (signInModalWindow.isDisplayed()) {
+//            WebElement closeSignInModalWindow = signInModalWindowCloseButton;
+//            click(closeSignInModalWindow);
+//
+//        } else {
+//
+//        }
+//
+//
+//        if (ddsLogoTopPage.isDisplayed()) {
+//            System.out.println("DDs Logo on top of the page is displayed");
+//        } else {
+//            System.out.println("Logo is not displayed on the webpage");
+//        }
+//
+//
+//        //CAROUSEL IMAGES
+//        driver.findElement(By.xpath("//div[@class='carousel-indicators inverted']//span[@role='listitem']//span[contains(text(), 'SPRING IS IN THE FLAIR')]")).click();
+//        driver.findElement(By.xpath("//button[@aria-label='Pause slide show']")).click();
+//
+//        boolean carouselSlide1Image1 = carouselImageSlideOneImage1.isDisplayed();
+//        System.out.println(" carousel Slide1 Image1 " + carouselSlide1Image1);
+//        boolean carouselSlide1Image2 = carouselImageSlideOneImage2.isDisplayed();
+//        System.out.println(" carousel Slide1 Image2 " + carouselSlide1Image2);
+//        boolean carouselSlide1Image3 = carouselImageSlideOneImage3.isDisplayed();
+//        System.out.println(" carousel Slide1 Image3 " + carouselSlide1Image3);
+//
+//        driver.findElement(By.xpath("//div[@class='carousel-indicators']//span[@role='listitem']//span[contains(text(), 'We’re Hiring!')]")).click();
+//
+//        boolean carouselSlide2Image1 = carouselImageSlideTwoImage1.isDisplayed();
+//        System.out.println(" carousel Slide2 Image1 " + carouselSlide2Image1);
+//        // Card Body imagess
+//        boolean cardBodyImage1 = cardBodyTikTokImage.isDisplayed();
+//        System.out.println(" cardBody Image1 " + cardBodyImage1);
+//        boolean cardBodyImage2 = cardBodyHiringImage.isDisplayed();
+//        System.out.println(" cardBody Image2 " + cardBodyImage2);
+//        boolean cardBodyImage3 = cardBodySignUpImage.isDisplayed();
+//        System.out.println(" cardBody Image3 " + cardBodyImage3);
+//        //Get Inspired Images
+//        boolean inspiredImage1 = getInspiredImage1.isDisplayed();
+//        System.out.println(" inspiredImage Image1 " + inspiredImage1);
+//        boolean inspiredImage2 = getInspiredImage2.isDisplayed();
+//        System.out.println(" inspiredImage Image2 " + inspiredImage2);
+//        boolean inspiredImage3 = getInspiredImage3.isDisplayed();
+//        System.out.println(" inspiredImage Image3 " + inspiredImage3);
+//        boolean inspiredImage4 = getInspiredImage4.isDisplayed();
+//        System.out.println(" inspiredImage Image3 " + inspiredImage4);
 
 
         return this;
