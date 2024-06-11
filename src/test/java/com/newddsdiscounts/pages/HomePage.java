@@ -1,6 +1,7 @@
 package com.newddsdiscounts.pages;
 
 import com.newddsdiscounts.driver.DriverManager;
+import com.opencsv.CSVWriter;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -248,6 +251,8 @@ public class HomePage extends BasePage {
         }
 
 
+
+        
 
         WebElement sendESC = driver.findElement(By.tagName("body"));
         int numberOfTimesESC = 4;
@@ -545,45 +550,60 @@ public class HomePage extends BasePage {
 
         }
 
-        WebElement navbar = driver.findElement(By.xpath("//div[@id='navbarMainCollapsible']"));
+        WebElement homePageLinksContainer = driver.findElement(By.tagName("body"));
 
-        List<WebElement> navMenuLinks = navbar.findElements(By.tagName("a"));
+        // Find all anchor elements within the container
+        List<WebElement> allLinksHomePage = homePageLinksContainer.findElements(By.tagName("a"));
 
-// Print the total number of footer links
-        System.out.println("Total Nav menu Links: " + navMenuLinks.size());
+        // Print the total number of links
+        System.out.println("Total Links: " + allLinksHomePage.size());
 
-// Iterate over each anchor element
-        for (WebElement navMenuLink : navMenuLinks) {
-            // Get the URL and page title without clicking
-            String url = navMenuLink.getAttribute("href");
-            String title = navMenuLink.getText();
+        // Create CSVWriter object to write data to CSV file
+        try (CSVWriter writer = new CSVWriter(new FileWriter("DDHomePageLinks.csv"))) {
+            // Write header to CSV file
+            String[] header = {"URL", "Link Text", "Response Code"};
+            writer.writeNext(header);
 
-            // Print the URL and link text
-            System.out.println("URL: " + url);
-            System.out.println("Link Text: " + title);
+            // Iterate over each anchor element
+            for (WebElement link : allLinksHomePage) {
+                // Get the URL and page title
+                String url = link.getAttribute("href");
+                String title = link.getText();
 
-            try {
-                // Create a URL object from the link URL
-                URL linkURL = new URL(url);
+                // Print the URL and link text
+                System.out.println("URL: " + url);
+                System.out.println("Link Text: " + title);
 
-                // Open a connection to the URL
-                HttpURLConnection connection = (HttpURLConnection) linkURL.openConnection();
+                int responseCode = -1;
+                try {
+                    // Create a URL object from the link URL
+                    URL linkURL = new URL(url);
 
-                // Set the request method to HEAD (to check only the status code)
-                connection.setRequestMethod("HEAD");
+                    // Open a connection to the URL
+                    HttpURLConnection connection = (HttpURLConnection) linkURL.openConnection();
 
-                // Get the response code
-                int responseCode = connection.getResponseCode();
+                    // Set the request method to HEAD (to check only the status code)
+                    connection.setRequestMethod("HEAD");
 
-                // Print the response code
-                System.out.println("Response Code: " + responseCode);
+                    // Get the response code
+                    responseCode = connection.getResponseCode();
 
-                // Close the connection
-                connection.disconnect();
-            } catch (Exception e) {
-                // Print any exceptions that occur during the connection
-                System.out.println("Exception occurred: " + e.getMessage());
+                    // Print the response code
+                    System.out.println("Response Code: " + responseCode);
+
+                    // Close the connection
+                    connection.disconnect();
+                } catch (Exception e) {
+                    // Print any exceptions that occur during the connection
+                    System.out.println("Exception occurred: " + e.getMessage());
+                }
+
+                // Write URL, link text, and response code to CSV file
+                String[] data = {url, title, String.valueOf(responseCode)};
+                writer.writeNext(data);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return this;
@@ -605,9 +625,6 @@ public class HomePage extends BasePage {
         System.out.println("maxlength for email field is " +footerSignUpSectionEmailField.getAttribute("maxlength"));
         System.out.println("maxlength for zip code field is " + footerSignUpSectionZipCodeField.getAttribute("maxlength"));
 
-//        WebElement hiddenElement =footerSignUpSectionNameField;
-//        ((JavascriptExecutor)driver).executeScript("arguments[0].type = 'text';", hiddenElement);
-//
         footerSignUpSectionNameField.sendKeys("Tester Name");
         footerSignUpSectionEmailField.sendKeys("Test@test.com");
         footerSignUpSectionZipCodeField.sendKeys("78613");
@@ -623,7 +640,6 @@ public class HomePage extends BasePage {
 
         Allure.step("The user clicks unsubcribe on emailsignup page");
 
-
         navigateTo_URL(getUrl());
         jsScrollClick(navMenuSocialLinksEmailSignUp);
         Thread.sleep(2000);
@@ -632,7 +648,6 @@ public class HomePage extends BasePage {
         assertThat(DriverManager.getDriver().getTitle(), containsString("Email Sign-Up"));
 
         jsScrollClick(navMenuSocialLinksUnsubcribe);
-
 
         Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.ddsdiscounts.com/email-sign-up/unsubscribe/");
         assertThat(DriverManager.getDriver().getTitle(), containsString("Unsubscribe"));
@@ -664,8 +679,8 @@ public class HomePage extends BasePage {
         jsScrollClick(navMenuSocialLinksInstagram);
         Thread.sleep(4000);
 
-        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.instagram.com/ddsdiscounts/");
-        //assertThat(DriverManager.getDriver().getTitle(), containsString("Email Sign-Up"));
+        //Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.instagram.com/ddsdiscounts/");
+        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fddsdiscounts%2F&is_from_rle");
 
 
         return this;
@@ -696,7 +711,6 @@ public class HomePage extends BasePage {
 
         navigateTo_URL(getUrl());
         WebElement tiktoklink = navMenuSocialLinksTiktok;
-
         ((JavascriptExecutor)driver).executeScript("arguments[0].removeAttribute('target');", tiktoklink);
         jsScrollClick(navMenuSocialLinksTiktok);
         Thread.sleep(4000);
@@ -739,6 +753,22 @@ public class HomePage extends BasePage {
         Assert.assertEquals(actualFooterAboutUsLinkTittle, expectedFooterAboutUsLinkTittle);
         System.out.println("About Us  Tittle passed");
         //driver.navigate().back();
+        Thread.sleep(2000);
+
+//        Thread.sleep(1000);
+//        WebElement aboutUsJobsButton =  aboutUsSearchForJobsButton;
+//        scrollIntoViewJS(aboutUsSearchForJobsButton);
+//        ((JavascriptExecutor)driver).executeScript("arguments[0].removeAttribute('target');", aboutUsJobsButton);
+//        jsScrollClick(aboutUsSearchForJobsButton);
+//        Thread.sleep(4000);
+//        String actualAboutUsSearchJobsUrl = driver.getCurrentUrl();
+//        System.out.println(actualAboutUsSearchJobsUrl);
+//        String expectedAboutUsSearchJobsUrl = "https://jobs.rossstores.com/";
+//        Assert.assertEquals(actualAboutUsSearchJobsUrl, expectedAboutUsSearchJobsUrl);
+//        System.out.println("Assert URL passed");
+//        driver.navigate().back();
+
+
 
         scrollIntoViewJS(aboutUsSearchForJobsButton);
         jsScrollClick(aboutUsSearchForJobsButton);
