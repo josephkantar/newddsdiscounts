@@ -1,4 +1,5 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"broken","Thu Apr 11 15:26:53 CDT 2024","Thu Apr 11 15:26:53 CDT 2024","0","Default Suite","newddsdiscounts","com.newddsdiscounts.tests.DdsDiscounts","com.newddsdiscounts.tests.DdsDiscounts","setUp","setUp",""
+"passed","Thu May 30 09:37:19 CDT 2024","Thu May 30 09:42:38 CDT 2024","319392","Default Suite","newddsdiscounts","com.newddsdiscounts.tests.DdsDiscounts","com.newddsdiscounts.tests.DdsDiscounts","testDdsDiscounts","testDdsDiscounts",""
+"broken","Wed Apr 17 16:49:44 CDT 2024","Wed Apr 17 16:49:44 CDT 2024","1","Default Suite","newddsdiscounts","com.newddsdiscounts.tests.DdsDiscounts","com.newddsdiscounts.tests.DdsDiscounts","tearDown","tearDown",""
+"broken","Thu Apr 18 10:41:34 CDT 2024","Thu Apr 18 10:41:34 CDT 2024","1","Default Suite","newddsdiscounts","com.newddsdiscounts.tests.DdsDiscounts","com.newddsdiscounts.tests.DdsDiscounts","setUp","setUp",""
 "passed","Thu Apr 11 13:24:20 CDT 2024","Thu Apr 11 13:24:22 CDT 2024","2103","Default Suite","newddsdiscounts","com.newddsdiscounts.tests.DdsDiscounts","com.newddsdiscounts.tests.DdsDiscounts","testCorpRoss","testCorpRoss",""
-"passed","Tue Apr 16 23:32:23 CDT 2024","Tue Apr 16 23:34:38 CDT 2024","134795","Default Suite","newddsdiscounts","com.newddsdiscounts.tests.DdsDiscounts","com.newddsdiscounts.tests.DdsDiscounts","testDdsDiscounts","testDdsDiscounts",""

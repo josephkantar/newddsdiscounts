@@ -249,6 +249,8 @@ public class HomePage extends BasePage {
 
 
 
+        
+
         WebElement sendESC = driver.findElement(By.tagName("body"));
         int numberOfTimesESC = 4;
         for (int i = 0; i <numberOfTimesESC ; i++) {
