@@ -679,9 +679,11 @@ public class HomePage extends BasePage {
         jsScrollClick(navMenuSocialLinksInstagram);
         Thread.sleep(4000);
 
-        Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.instagram.com/ddsdiscounts/");
-        //Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fddsdiscounts%2F&is_from_rle");
-
+        String currentUrl = DriverManager.getDriver().getCurrentUrl();
+        Assert.assertTrue(
+                currentUrl.equals("https://www.instagram.com/ddsdiscounts/") ||
+                        currentUrl.equals("https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fddsdiscounts%2F&is_from_rle"),
+                "The current URL does not match the expected URLs." );
 
         return this;
     }
