@@ -790,7 +790,7 @@ public class HomePage extends BasePage {
         driver.switchTo().window(parentWindow1); //cntrl to parent window
 
         scrollIntoViewJS(aboutUsFirstBookButton);
-        click(aboutUsFirstBookButton);
+        jsScrollClick(aboutUsFirstBookButton);
         String parentWindow2 = driver.getWindowHandle();
         Set<String> handles2 = driver.getWindowHandles();
         for (String windowHandle : handles2) {
