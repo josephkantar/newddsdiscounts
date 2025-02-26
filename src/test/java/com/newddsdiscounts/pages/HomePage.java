@@ -121,7 +121,7 @@ public class HomePage extends BasePage {
     private WebElement footerCareers;
     @FindBy(xpath = "//li[@id='menu-item-23']//a[@href='https://corp.rossstores.com/responsibility']")
     private WebElement footerSocialResponsibility;
-    @FindBy(xpath = "//li[@id='menu-item-611']//a[@href='https://corp.rossstores.com/responsibility/empowering-our-associates/our-commitment-to-diversity/']")
+    @FindBy(xpath = "//li[@id='menu-item-611']//a[@href='https://inclusion.rossstores.com/']")
     private WebElement footerDiversityEI;
     @FindBy(xpath = "//li[@id='menu-item-24']//a[@href='https://investors.rossstores.com/']")
     private WebElement footerInvestors;
@@ -994,8 +994,8 @@ public class HomePage extends BasePage {
         for (String windowHandle : handles1) {
             if (!windowHandle.equals(parentWindow1)) {
                 driver.switchTo().window(windowHandle);
-                Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://corp.rossstores.com/responsibility/empowering-our-associates/our-commitment-to-diversity/");
-                assertThat(DriverManager.getDriver().getTitle(), containsString("Our Commitment to Diversity, Equality, and Inclusion"));
+                Assert.assertEquals(DriverManager.getDriver().getCurrentUrl(), "https://inclusion.rossstores.com/");
+                assertThat(DriverManager.getDriver().getTitle(), containsString("Ross Stores, Inc."));
 
             }
         }
